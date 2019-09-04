@@ -1,17 +1,16 @@
 import dotenv from "dotenv";
 import express from "express";
 import config from "./config";
-import logger from "./log";
+import { appLogger, logMiddleware } from "./log";
+import appRoutes from "./routes";
 dotenv.config();
 
 const app = express();
 
-app.use(logger);
+app.use(logMiddleware);
 
-app.get("/", (req, res, next) => {
-  res.json({ status: "ok" });
-});
+app.use("/", appRoutes);
 
 app.listen(config.port || 3000, () => {
-  console.log(`Listening on port ${config.port || 3000} 🚀`);
+  appLogger.info(`Listening on port ${config.port || 3000} 🚀`);
 });

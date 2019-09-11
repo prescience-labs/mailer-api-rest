@@ -2,6 +2,7 @@ import { Router } from "express";
 import { DB } from "../../db";
 import { IScheduledMessage } from "../../db/models/scheduledMessage";
 import { appLogger } from "../../log";
+import { MailerController } from "./controllers";
 
 /**
  * For quick tracker pixel reference, @see https://github.com/jaredpalmer/TIL/blob/master/Node.js/easy-tracking-pixel.md
@@ -9,10 +10,7 @@ import { appLogger } from "../../log";
 
 const mailerRouter = Router();
 
-mailerRouter.post("/schedule", async (req, res) => {
-  const message = await DB.Models.ScheduledMessage.create(req.body);
-  res.send(message);
-});
+mailerRouter.post("/schedule", MailerController.handleScheduleMail);
 
 mailerRouter.get("/track/:id", (req, res) => {
   const { id: base64Id } = req.params;

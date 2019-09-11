@@ -12,19 +12,23 @@ export class CronScheduler {
         ? `*/${config.sendFrequencyInMinutes} * * * *`
         : "*/10 * * * * *",
       () => {
-        DB.Models.ScheduledMessage.find({ sentDate: null }, (err, docs) => {
-          appLogger.info("running sendmail cron job");
-          docs.map(async d => {
-            await mailer.send({
-              from: d.originAddress,
-              html: d.messageData,
-              to: d.recipientAddress,
-              subject: d.subject
+        DB.Models.ScheduledMessage.find(
+          { sentDate: null, scheduledSendDate: { $lt: new Date() } },
+          (err, docs) => {
+            appLogger.info("running sendmail cron job");
+            docs.map(async d => {
+              appLogger.verbose(d);
+              await mailer.send({
+                from: d.originAddress,
+                html: d.messageData,
+                to: d.recipientAddress,
+                subject: d.subject
+              });
+              d.sentDate = new Date();
+              d.save();
             });
-            d.sentDate = new Date();
-            d.save();
-          });
-        });
+          }
+        );
       }
     );
     mailScheduler.start();

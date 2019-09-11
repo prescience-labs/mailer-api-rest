@@ -6,6 +6,7 @@ export interface IScheduledMessage extends Document {
   originAddress: string;
   subject: string;
   sentDate?: Date;
+  scheduledSendDate?: Date;
 }
 
 export interface ScheduledMessageModel extends Model<IScheduledMessage> {}
@@ -19,7 +20,8 @@ export class ScheduledMessage {
         originAddress: { type: String, required: true },
         recipientAddress: { type: String, required: true },
         subject: { type: String, required: true },
-        sentDate: Date
+        sentDate: Date,
+        scheduledSendDate: Date
       },
       { timestamps: true }
     );

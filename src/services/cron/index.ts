@@ -6,7 +6,7 @@ import { DB } from "../../db";
 export class CronScheduler {
   public static init() {
     const mailer = new MailSender();
-    const mailScheduler = new CronJob(`*/10 * * * * *`, () => {
+    const mailScheduler = new CronJob(`*/${config.sendFrequencyInMinutes} * * * *`, () => {
       DB.Models.ScheduledMessage.find({ sentDate: null }, (err, docs) => {
         docs.map(async d => {
           await mailer.send({

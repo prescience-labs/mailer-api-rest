@@ -18,7 +18,8 @@ export class CronScheduler {
             await mailer.send({
               from: d.originAddress,
               html: d.messageData,
-              to: d.recipientAddress
+              to: d.recipientAddress,
+              subject: d.subject
             });
             d.sentDate = new Date();
             d.save();

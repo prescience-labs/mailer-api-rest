@@ -1,9 +1,10 @@
-import { Document, Model, Schema, model } from "mongoose";
+import { Document, Model, model, Schema } from "mongoose";
 
 export interface IScheduledMessage extends Document {
   messageData: string;
   recipientAddress: string;
   originAddress: string;
+  subject: string;
   sentDate?: Date;
 }
 
@@ -17,6 +18,7 @@ export class ScheduledMessage {
         messageData: { type: String, required: true },
         originAddress: { type: String, required: true },
         recipientAddress: { type: String, required: true },
+        subject: { type: String, required: true },
         sentDate: Date
       },
       { timestamps: true }

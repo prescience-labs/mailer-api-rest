@@ -8,6 +8,7 @@ export default {
   database: {
     mongoUri: process.env.MONGODB_URI
   },
+  baseUrl: process.env.BASE_URL || null,
   mailgunAPIKey: process.env.MAILGUN_API_KEY,
   mailgunSenderDomain: process.env.MAILGUN_SENDER_DOMAIN
 };

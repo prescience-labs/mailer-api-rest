@@ -17,7 +17,6 @@ export class DB {
   private _models: IModels;
 
   private constructor() {
-    console.log(config.database.mongoUri);
     connect(
       config.database.mongoUri,
       {

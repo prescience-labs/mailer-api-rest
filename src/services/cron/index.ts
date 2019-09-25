@@ -3,7 +3,7 @@ import config from "../../config";
 import { DB } from "../../db";
 import { appLogger } from "../../log";
 import { MailSender } from "../mailSender";
-
+import axios from 'axios'
 export class CronScheduler {
   public static init() {
     const mailer = new MailSender();
@@ -32,5 +32,11 @@ export class CronScheduler {
       }
     );
     mailScheduler.start();
+    new CronJob('*/1 * * * *', () => {
+      if (!config.baseUrl) return
+      try {
+        axios.get('https://mailer-rest-api.herokuapp.com')
+      } catch (e) { }
+    })
   }
 }

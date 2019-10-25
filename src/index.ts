@@ -5,11 +5,11 @@ import config from "./config";
 import { appLogger, logMiddleware } from "./log";
 import appRoutes from "./routes";
 import { CronScheduler } from "./services/cron";
-
+import cors from 'cors'
 const app = express();
 
 app.use(logMiddleware);
-
+app.use(cors({ origin: '*' }))
 app.use(bodyParser());
 
 app.use("/", appRoutes);

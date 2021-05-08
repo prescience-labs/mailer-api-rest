@@ -35,7 +35,7 @@
     "nodemailer-mailgun-transport": "^1.4.0",
     "swagger-jsdoc": "^3.4.0",
     "ts-node-dev": "^1.0.0-pre.42",
-    "typeorm": "^0.2.18",
+    "typeorm": "^0.2.25",
     "typescript": "^3.6.2",
     "winston": "^3.2.1"
   },
